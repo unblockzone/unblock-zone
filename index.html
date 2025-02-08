@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -251,9 +255,7 @@
             <span class="white">UNBLOCK</span>
             <span class="red">ZONE</span>
         </div>
-        <form id="form">
-            <input type="text" id="customSearchBar" class="custom-search-bar" placeholder="Search..." placeholder="Enter a URL or search query">
-        </form>
+        <input type="text" id="customSearchBar" class="custom-search-bar" placeholder="Search..." onkeypress="handleSearch(event)">
     </div>
 
     <!-- Valentine Heart Animation -->
@@ -269,32 +271,20 @@
 
         setInterval(createHeart, 300);
     </script>
-    
-    <script src="uv/uv.bundle.js"></script>
-    <script src="uv/uv.config.js"></script>
+
     <script>
-      const form = document.getElementById('form');
-const input = document.getElementById('customSearchBar');
+        function setTheme(theme) {
+            // Theme function logic
+        }
 
-form.addEventListener('submit', async event => {
-    event.preventDefault();
-    window.navigator.serviceWorker.register("sw.js", {
-        scope: __uv$config.prefix
-    }).then(() => {
-        let url = input.value.trim();
-        if (!isUrl(url)) url = 'https://www.google.com/search?q=' + url;
-        else if (!(url.startsWith('https://') || url.startsWith('http://'))) url = 'http://' + url;
-
-
-        window.location.href = __uv$config.prefix + __uv$config.encodeUrl(url);
-    });
-});
-
-function isUrl(val = ''){
-    if (/^http(s?):\/\//.test(val) || val.includes('.') && val.substr(0, 1) !== ' ') return true;
-    return false;
-};
-
+        function handleSearch(event) {
+            if (event.key === 'Enter') {
+                const query = document.getElementById('customSearchBar').value.trim();
+                if (query) {
+                    window.location.href = `https://radicalub.pages.dev/${encodeURIComponent(query)}`;
+                }
+            }
+        }
     </script>
 </body>
 </html>
